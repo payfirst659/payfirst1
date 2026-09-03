@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PayFirst Mobile Recharge</title>
+</head>
+
+<body>
+
+  <h1>PayFirst</h1>
+  <h2>Mobile Recharge</h2>
+
+  <label>Mobile Number</label><br>
+  <input type="tel" id="mobile"
+         placeholder="Enter mobile number"
+         maxlength="10">
+
+  <br><br>
+
+  <label>📡 SIM Operator</label><br>
+  <select id="operator">
+    <option value="">Select Operator</option>
+    <option>Jio</option>
+    <option>Airtel</option>
+    <option>Vi</option>
+    <option>BSNL</option>
+  </select>
+
+  <br><br>
+
+  <button onclick="viewPlans()">
+    🔍 View Recharge Plans
+  </button>
+
+  <script>
+    function viewPlans() {
+      let mobile = document.getElementById("mobile").value;
+      let operator = document.getElementById("operator").value;
+
+      if (mobile.length !== 10) {
+        alert("Enter a valid 10-digit mobile number");
+        return;
+      }
+
+      if (!operator) {
+        alert("Select SIM operator");
+        return;
+      }
+
+      alert(
+        "Mobile: " + mobile +
+        "\nOperator: " + operator +
+        "\n\nRecharge Plans API will be connected here."
+      );
+    }
+  </script>
+
+</body>
+</html>
