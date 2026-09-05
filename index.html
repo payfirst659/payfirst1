@@ -1,59 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PayFirst Mobile Recharge</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PayFirst1</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 30px 15px;
+    }
+
+    .box {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 13px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 14px;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 17px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>PayFirst</h1>
-  <h2>Mobile Recharge</h2>
+  <div class="box">
 
-  <label>Mobile Number</label><br>
-  <input type="tel" id="mobile"
-         placeholder="Enter mobile number"
-         maxlength="10">
+    <h1>PayFirst1</h1>
 
-  <br><br>
+    <form>
 
-  <label>📡 SIM Operator</label><br>
-  <select id="operator">
-    <option value="">Select Operator</option>
-    <option>Jio</option>
-    <option>Airtel</option>
-    <option>Vi</option>
-    <option>BSNL</option>
-  </select>
+      <!-- Mobile Number -->
+      <label>Mobile Number</label>
+      <input
+        type="tel"
+        placeholder="Enter Mobile Number"
+        maxlength="10"
+        pattern="[0-9]{10}"
+        inputmode="numeric"
+        required
+      >
 
-  <br><br>
+      <!-- SIM Operator -->
+      <label>SIM Operator</label>
+      <select required>
+        <option value="">Select SIM Operator</option>
+        <option value="Jio">Jio</option>
+        <option value="Airtel">Airtel</option>
+        <option value="Vi">Vi</option>
+        <option value="BSNL">BSNL</option>
+      </select>
 
-  <button onclick="viewPlans()">
-    🔍 View Recharge Plans
-  </button>
+      <!-- WhatsApp Number -->
+      <label>WhatsApp Number</label>
+      <input
+        type="tel"
+        placeholder="Enter 10-digit WhatsApp Number"
+        maxlength="10"
+        pattern="[0-9]{10}"
+        inputmode="numeric"
+        required
+      >
 
-  <script>
-    function viewPlans() {
-      let mobile = document.getElementById("mobile").value;
-      let operator = document.getElementById("operator").value;
+      <button type="submit">
+        Continue
+      </button>
 
-      if (mobile.length !== 10) {
-        alert("Enter a valid 10-digit mobile number");
-        return;
-      }
+    </form>
 
-      if (!operator) {
-        alert("Select SIM operator");
-        return;
-      }
-
-      alert(
-        "Mobile: " + mobile +
-        "\nOperator: " + operator +
-        "\n\nRecharge Plans API will be connected here."
-      );
-    }
-  </script>
+  </div>
 
 </body>
 </html>
