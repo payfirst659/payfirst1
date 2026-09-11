@@ -205,7 +205,10 @@ function viewPlans() {
 }
 
 
-document.getElementById("rechargeForm").addEventListener("submit", function(e) {
+
+const BACKEND_URL = "https://payfirst-backend-1.onrender.com";
+
+document.getElementById("rechargeForm").addEventListener("submit", async function(e) {
 
   e.preventDefault();
 
@@ -223,11 +226,42 @@ document.getElementById("rechargeForm").addEventListener("submit", function(e) {
   const whatsapp = document.getElementById("whatsapp").value;
   const plan = selectedPlan.value;
 
-  document.getElementById("message").innerHTML =
-    "Recharge request submitted successfully!<br>" +
-    "Mobile: " + mobile + "<br>" +
-    "Operator: " + operator + "<br>" +
-    "Plan: ₹" + plan;
+  const message = document.getElementById("message");
+
+  message.textContent = "Sending request...";
+
+  try {
+    const response = await fetch(
+      BACKEND_URL + "/api/recharge-request",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mobileNumber: mobile,
+          operator: operator,
+          whatsappNumber: whatsapp,
+          selectedPlan: "₹" + plan
+        })
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.success) {
+      message.textContent =
+        "Recharge request submitted successfully!";
+    } else {
+      message.textContent =
+        result.message || "Request failed.";
+    }
+
+  } catch (error) {
+    message.textContent =
+      "Backend se connection nahi ho raha.";
+    console.error(error);
+  }
 
 });
 
