@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +42,7 @@
       margin-bottom: 7px;
     }
 
-    input,
-    select {
+    input, select {
       width: 100%;
       padding: 14px;
       border: 1px solid #ccc;
@@ -80,10 +80,6 @@
       cursor: pointer;
     }
 
-    .plan:hover {
-      background: #f1fff5;
-    }
-
     .plan input {
       width: auto;
       margin-right: 8px;
@@ -93,6 +89,7 @@
       text-align: center;
       margin-top: 15px;
       font-weight: bold;
+      line-height: 1.6;
     }
   </style>
 </head>
@@ -105,7 +102,6 @@
 
   <form id="rechargeForm">
 
-    <!-- Mobile Number -->
     <label>📱 Mobile Number</label>
     <input
       type="tel"
@@ -117,7 +113,6 @@
       required
     >
 
-    <!-- SIM Operator -->
     <label>📶 SIM Operator</label>
     <select id="operator" required>
       <option value="">Select SIM Operator</option>
@@ -127,7 +122,6 @@
       <option value="BSNL">BSNL</option>
     </select>
 
-    <!-- WhatsApp Number -->
     <label>💬 WhatsApp Number</label>
     <input
       type="tel"
@@ -139,32 +133,29 @@
       required
     >
 
-    <!-- View Plans -->
     <button type="button" onclick="viewPlans()">
       View Recharge Plans
     </button>
 
-    <!-- Plans -->
     <div id="plans">
 
       <label>Select the Plan</label>
 
-      <div class="plan">
+      <label class="plan">
         <input type="radio" name="plan" value="199">
         ₹199 — 1.5GB/day — 28 Days
-      </div>
+      </label>
 
-      <div class="plan">
+      <label class="plan">
         <input type="radio" name="plan" value="299">
         ₹299 — 2GB/day — 28 Days
-      </div>
+      </label>
 
-      <div class="plan">
+      <label class="plan">
         <input type="radio" name="plan" value="399">
         ₹399 — 2.5GB/day — 28 Days
-      </div>
+      </label>
 
-      <!-- Submit -->
       <button type="submit">
         🔘 Submit / Continue
       </button>
@@ -177,8 +168,15 @@
 
 </div>
 
-
 <script>
+
+// ==================================================
+// STEP 3: YAHAN APNA BACKEND URL ADD KAREIN
+// ==================================================
+
+const BACKEND_URL = "https://payfirst.onrender.com";
+
+// ==================================================
 
 function viewPlans() {
 
@@ -205,8 +203,18 @@ function viewPlans() {
 }
 
 
-const BACKEND_URL =
-  "https://payfirst.onrender.com";
+document.getElementById("rechargeForm").addEventListener("submit", async function(e) {
+
+  e.preventDefault();
+
+  const selectedPlan = document.querySelector(
+    'input[name="plan"]:checked'
+  );
+
+  if (!selectedPlan) {
+    alert("Please select a recharge plan.");
+    return;
+  }
 
   const mobile = document.getElementById("mobile").value;
   const operator = document.getElementById("operator").value;
@@ -218,13 +226,16 @@ const BACKEND_URL =
   message.textContent = "Sending request...";
 
   try {
+
     const response = await fetch(
       BACKEND_URL + "/api/recharge-request",
       {
         method: "POST",
+
         headers: {
           "Content-Type": "application/json"
         },
+
         body: JSON.stringify({
           mobileNumber: mobile,
           operator: operator,
@@ -237,17 +248,24 @@ const BACKEND_URL =
     const result = await response.json();
 
     if (result.success) {
+
       message.textContent =
         "Recharge request submitted successfully!";
+
     } else {
+
       message.textContent =
         result.message || "Request failed.";
+
     }
 
   } catch (error) {
+
     message.textContent =
       "Backend se connection nahi ho raha.";
+
     console.error(error);
+
   }
 
 });
