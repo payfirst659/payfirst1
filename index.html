@@ -205,20 +205,8 @@ function viewPlans() {
 }
 
 
-const BACKEND_URL = "https://payfirst-backend-1.onrender.com";
-
-document.getElementById("rechargeForm").addEventListener("submit", async function(e) {
-
-  e.preventDefault();
-
-  const selectedPlan = document.querySelector(
-    'input[name="plan"]:checked'
-  );
-
-  if (!selectedPlan) {
-    alert("Please select a recharge plan.");
-    return;
-  }
+const BACKEND_URL =
+  "https://payfirst.onrender.com";
 
   const mobile = document.getElementById("mobile").value;
   const operator = document.getElementById("operator").value;
